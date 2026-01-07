@@ -1,2 +1,2 @@
 # SomoX
-SCompany Website
+Company Website

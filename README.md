@@ -1,0 +1,2 @@
+# SomoX
+SCompany Website

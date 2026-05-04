@@ -3,444 +3,542 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SomoX - Parallax Depth Experience</title>
+    <title>SomoX — DevOps, Software & Mobile Development</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="tooplate-parallax-depth.css" rel="stylesheet">
-<!--
-
-Tooplate 2144 Parallax Depth
-
-https://www.tooplate.com/view/2144-parallax-depth
-
-Free HTML CSS Template
-
--->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="somox.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Mouse Follower -->
-    <div class="mouse-follower" id="mouseFollower"></div>
+    <!-- Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
 
-    <!-- Stars Background -->
-    <div class="stars" id="stars"></div>
+    <!-- Antigravity Canvas -->
+    <canvas id="antigravityCanvas"></canvas>
 
-    <!-- Hero Section with Parallax Layers -->
-    <div class="hero-container" id="hero">
-        <!-- Grid Overlay -->
-        <div class="grid-overlay">
-            <div class="grid-diagonal-1"></div>
-            <div class="grid-diagonal-2"></div>
-        </div>
-
-        <!-- Logo -->
-        <div class="logo-container">
-            <a href="#hero" class="logo">
-                <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Outer hexagon -->
-                    <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" 
-                             fill="none" 
-                             stroke="url(#logo-gradient)" 
-                             stroke-width="2"/>
-                    <!-- Inner triangles creating depth -->
-                    <polygon points="50,20 70,35 50,50" 
-                             fill="url(#logo-gradient)" 
-                             opacity="0.8"/>
-                    <polygon points="50,50 70,35 70,65" 
-                             fill="url(#logo-gradient2)" 
-                             opacity="0.6"/>
-                    <polygon points="50,50 70,65 50,80" 
-                             fill="url(#logo-gradient)" 
-                             opacity="0.7"/>
-                    <polygon points="50,20 30,35 50,50" 
-                             fill="url(#logo-gradient2)" 
-                             opacity="0.7"/>
-                    <polygon points="50,50 30,35 30,65" 
-                             fill="url(#logo-gradient)" 
-                             opacity="0.5"/>
-                    <polygon points="50,50 30,65 50,80" 
-                             fill="url(#logo-gradient2)" 
-                             opacity="0.8"/>
-                    <!-- Center gem -->
-                    <polygon points="50,40 60,50 50,60 40,50" 
-                             fill="url(#logo-gradient3)" 
-                             stroke="#00ffcc" 
-                             stroke-width="1"/>
-                    <!-- Gradient definitions -->
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">
+                <svg width="36" height="36" viewBox="0 0 100 100">
                     <defs>
-                        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff00ea;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="logo-gradient2" x1="100%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff00ea;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#00ffcc;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="logo-gradient3" x1="50%" y1="0%" x2="50%" y2="100%">
-                            <stop offset="0%" style="stop-color:#00ffcc;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#00d9ff;stop-opacity:1" />
+                        <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1"/>
+                            <stop offset="100%" style="stop-color:#06b6d4"/>
                         </linearGradient>
                     </defs>
+                    <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="url(#lg1)" opacity="0.15"/>
+                    <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="none" stroke="url(#lg1)" stroke-width="3"/>
+                    <polygon points="50,30 68,42 68,58 50,70 32,58 32,42" fill="url(#lg1)" opacity="0.6"/>
+                    <circle cx="50" cy="50" r="8" fill="white"/>
                 </svg>
-                <span class="logo-text">SomoX</span>
+                <span>SomoX</span>
             </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Get Started</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
+    </nav>
 
-        <!-- Background Layer -->
-        <div class="parallax-layer layer-bg"></div>
-        
-        <!-- Floating Elements Layer -->
-        <div class="parallax-layer layer-float">
-            <!-- Bottom Left Rectangle Group -->
-            <div class="rectangles-bottom-left">
-                <div class="rect rect-bl-1"></div>
-                <div class="rect rect-bl-2"></div>
-                <div class="rect rect-bl-3"></div>
-                <div class="rect rect-bl-4"></div>
-                <div class="rect rect-bl-5"></div>
-                <div class="rect rect-bl-6"></div>
-            </div>
-            
-            <!-- Top Right Rectangle Group -->
-            <div class="rectangles-top-right">
-                <div class="rect rect-tr-1"></div>
-                <div class="rect rect-tr-2"></div>
-                <div class="rect rect-tr-3"></div>
-                <div class="rect rect-tr-4"></div>
-            </div>
-        </div>
-        
-        <!-- Foreground Layer -->
-        <div class="parallax-layer layer-fg">
-            <div class="glowing-orb orb-1"></div>
-            <div class="glowing-orb orb-2"></div>
-        </div>
-        
-        <!-- Hero Content -->
-        <div class="hero-content">
-            <h1 class="hero-title">SOMOX</h1>
-            <p class="hero-subtitle">Immersive Multi-Layer Scrolling Experience</p>
-            <a href="#about" class="cta-button">Explore Depths</a>
-        </div>
-
-        <!-- Navigation -->
-        <a href="#about" class="nav-btn-next" title="Next Section">
-            <div class="pyramid">
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-base"></div>
-                <span class="pyramid-inner">▼</span>
-            </div>
-        </a>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="#about" class="mobile-link">About</a></li>
+            <li><a href="#services" class="mobile-link">Services</a></li>
+            <li><a href="#work" class="mobile-link">Work</a></li>
+            <li><a href="#contact" class="mobile-link">Contact</a></li>
+        </ul>
     </div>
 
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+
+        <!-- Floating Tech Objects -->
+        <div class="floating-objects" id="floatingObjects">
+            <div class="float-obj f1" data-speed="0.3">
+                <svg width="48" height="48" viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="8" fill="none" stroke="#6366f1" stroke-width="2"/><path d="M16 24h16M24 16v16" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div class="float-obj f2" data-speed="0.5">
+                <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="#06b6d4" stroke-width="2"/><circle cx="20" cy="20" r="8" fill="#06b6d4" opacity="0.3"/></svg>
+            </div>
+            <div class="float-obj f3" data-speed="0.2">
+                <svg width="44" height="44" viewBox="0 0 44 44"><polygon points="22,4 40,34 4,34" fill="none" stroke="#a855f7" stroke-width="2"/></svg>
+            </div>
+            <div class="float-obj f4" data-speed="0.4">
+                <svg width="36" height="36" viewBox="0 0 36 36"><rect x="4" y="4" width="28" height="28" rx="4" fill="#06b6d4" opacity="0.2" stroke="#06b6d4" stroke-width="1.5"/><rect x="10" y="10" width="16" height="16" rx="2" fill="#06b6d4" opacity="0.4"/></svg>
+            </div>
+            <div class="float-obj f5" data-speed="0.6">
+                <svg width="52" height="52" viewBox="0 0 52 52"><polygon points="26,4 48,15 48,37 26,48 4,37 4,15" fill="none" stroke="#f59e0b" stroke-width="2" opacity="0.7"/></svg>
+            </div>
+            <div class="float-obj f6" data-speed="0.35">
+                <svg width="38" height="38" viewBox="0 0 38 38"><circle cx="19" cy="19" r="15" fill="none" stroke="#ec4899" stroke-width="2" stroke-dasharray="6 3"/></svg>
+            </div>
+            <div class="float-obj f7" data-speed="0.45">
+                <svg width="42" height="42" viewBox="0 0 42 42"><path d="M21 4L38 32H4Z" fill="#6366f1" opacity="0.2" stroke="#6366f1" stroke-width="1.5"/></svg>
+            </div>
+            <div class="float-obj f8" data-speed="0.25">
+                <svg width="34" height="34" viewBox="0 0 34 34"><rect x="3" y="3" width="28" height="28" rx="14" fill="none" stroke="#10b981" stroke-width="2"/><circle cx="17" cy="17" r="5" fill="#10b981" opacity="0.5"/></svg>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Trusted SaaS Solutions
+            </div>
+            <h1 class="hero-title">
+                <span class="line">Build. Deploy.</span>
+                <span class="line gradient-text">Scale Beyond</span>
+                <span class="line">Limits.</span>
+            </h1>
+            <p class="hero-desc">We deliver world-class DevOps, software development, and mobile solutions that transform your ideas into powerful, scalable products.</p>
+            <div class="hero-actions">
+                <a href="#services" class="btn-primary">Explore Services</a>
+                <a href="#work" class="btn-ghost">View Our Work</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num" data-target="150">0</span><span>+</span>
+                    <span class="stat-label">Projects Delivered</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-target="50">0</span><span>+</span>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-target="8">0</span><span>+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-scroll-hint">
+            <span>Scroll to explore</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
     <!-- About Section -->
-    <section class="content-section section-gradient" id="about">
+    <section id="about" class="section about-section">
         <div class="container">
-            <h2 class="section-title">About SomoX</h2>
-            <div class="about-content">
-                <div class="about-top-row">
-                    <div class="about-text">
-                        <h3>Innovative Technology Solutions</h3>
-                        <p>SomoX is a leading technology company specializing in comprehensive software solutions that drive digital transformation. We combine cutting-edge technology with innovative thinking to deliver exceptional results for businesses across various industries.</p>
-                        <p>Our team of expert developers and engineers work collaboratively to create scalable, efficient, and user-centric solutions. From concept to deployment, we ensure every project meets the highest standards of quality and performance, helping our clients achieve their business objectives with cutting-edge technology.</p>
-                    </div>
-                    <div class="about-visual">
-                        <div class="orbit-container">
-                            <div class="orbit orbit-1">
-                                <div class="orbit-dot dot-1"></div>
-                            </div>
-                            <div class="orbit orbit-2">
-                                <div class="orbit-dot dot-2"></div>
-                            </div>
-                            <div class="orbit orbit-3">
-                                <div class="orbit-dot dot-3"></div>
-                            </div>
-                        </div>
+            <div class="about-grid">
+                <div class="about-text-col" data-reveal>
+                    <span class="section-label">About SomoX</span>
+                    <h2 class="section-title">We Turn Complex Ideas Into <span class="gradient-text">Digital Reality</span></h2>
+                    <p>SomoX is a next-generation technology company at the intersection of innovation and execution. We specialize in building robust digital infrastructure — from automated DevOps pipelines to pixel-perfect mobile apps.</p>
+                    <p>Our multidisciplinary team of engineers, architects, and designers collaborate closely with clients to deliver products that don't just work — they <em>excel</em>.</p>
+                    <div class="about-tags">
+                        <span class="tag">Agile Methodology</span>
+                        <span class="tag">Cloud Native</span>
+                        <span class="tag">CI/CD Expert</span>
+                        <span class="tag">React Native</span>
+                        <span class="tag">Kubernetes</span>
+                        <span class="tag">Microservices</span>
                     </div>
                 </div>
-                <div class="about-boxes">
-                    <div class="info-box">
-                        <div class="box-icon">
-                            🚀
-                            <span class="box-number">1</span>
+                <div class="about-visual-col" data-reveal>
+                    <div class="about-card-stack">
+                        <div class="acard acard-1">
+                            <div class="acard-icon">⚡</div>
+                            <div>
+                                <strong>Fast Delivery</strong>
+                                <p>Ship features in days, not months</p>
+                            </div>
                         </div>
-                        <h4 class="box-title">DevOps</h4>
-                        <p class="box-description">Streamlined CI/CD pipelines, infrastructure automation, and cloud solutions to accelerate your development lifecycle and ensure reliable deployments.</p>
-                    </div>
-                    <div class="info-box">
-                        <div class="box-icon">
-                            💻
-                            <span class="box-number">2</span>
+                        <div class="acard acard-2">
+                            <div class="acard-icon">🔒</div>
+                            <div>
+                                <strong>Secure by Design</strong>
+                                <p>Security baked in at every layer</p>
+                            </div>
                         </div>
-                        <h4 class="box-title">Software Development</h4>
-                        <p class="box-description">Custom software solutions built with modern technologies, following best practices to deliver robust, scalable, and maintainable applications.</p>
-                    </div>
-                    <div class="info-box">
-                        <div class="box-icon">
-                            📱
-                            <span class="box-number">3</span>
+                        <div class="acard acard-3">
+                            <div class="acard-icon">📈</div>
+                            <div>
+                                <strong>Built to Scale</strong>
+                                <p>Architecture that grows with you</p>
+                            </div>
                         </div>
-                        <h4 class="box-title">Mobile Development</h4>
-                        <p class="box-description">Cross-platform mobile applications for iOS and Android, delivering native-like performance and seamless user experiences across all devices.</p>
-                    </div>
-                    <div class="info-box">
-                        <div class="box-icon">
-                            🌐
-                            <span class="box-number">4</span>
-                        </div>
-                        <h4 class="box-title">Web Development</h4>
-                        <p class="box-description">Responsive, modern web applications with intuitive interfaces, optimized performance, and engaging user experiences that drive business growth.</p>
+                        <div class="acard-bg-shape"></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Navigation -->
-        <a href="#hero" class="nav-btn-prev" title="Previous Section">
-            <div class="hexagon">
-                <span class="hex-content">▲</span>
-            </div>
-        </a>
-        <a href="#features" class="nav-btn-next" title="Next Section">
-            <div class="pyramid">
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-base"></div>
-                <span class="pyramid-inner">▼</span>
-            </div>
-        </a>
     </section>
 
-    <!-- Features Section with 3D Carousel -->
-    <section class="content-section features-section-bg" id="features">
-        <!-- Grid Overlay -->
-        <div class="features-grid-overlay">
-            <div class="features-grid"></div>
-            <div class="features-grid-large"></div>
-        </div>
-        
+    <!-- Services Section -->
+    <section id="services" class="section services-section">
+        <div class="services-bg-dots"></div>
         <div class="container">
-            <h2 class="section-title">Layered Features</h2>
-            <div class="features-container">
-                <div class="carousel-3d" id="carousel">
-                    <div class="feature-card-3d" data-index="0">
-                        <span class="feature-number">01</span>
-                        <div class="feature-icon-3d">🚀</div>
-                        <h3 class="feature-title-3d">Speed Layers</h3>
-                        <p class="feature-description-3d">Multiple parallax layers moving at different speeds create realistic depth perception as you scroll through the experience.</p>
+            <div class="section-header" data-reveal>
+                <span class="section-label">What We Do</span>
+                <h2 class="section-title">End-to-End <span class="gradient-text">Technology Services</span></h2>
+                <p class="section-sub">From infrastructure automation to consumer-grade mobile apps — we cover the full stack.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card sc-devops" data-reveal>
+                    <div class="sc-glow"></div>
+                    <div class="sc-number">01</div>
+                    <div class="sc-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12-5.373 12-12 12S4 22.627 4 16z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M16 10v6l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M10 16h2M20 16h2M16 10v2M16 20v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
                     </div>
-                    <div class="feature-card-3d" data-index="1">
-                        <span class="feature-number">02</span>
-                        <div class="feature-icon-3d">✨</div>
-                        <h3 class="feature-title-3d">3D Transforms</h3>
-                        <p class="feature-description-3d">Elements respond to interactions with smooth 3D rotations and translations, creating an engaging visual hierarchy.</p>
-                    </div>
-                    <div class="feature-card-3d" data-index="2">
-                        <span class="feature-number">03</span>
-                        <div class="feature-icon-3d">🎨</div>
-                        <h3 class="feature-title-3d">Gradient Mastery</h3>
-                        <p class="feature-description-3d">Dynamic gradients and color transitions guide the eye through different depth levels, enhancing the parallax effect.</p>
-                    </div>
-                    <div class="feature-card-3d" data-index="3">
-                        <span class="feature-number">04</span>
-                        <div class="feature-icon-3d">💫</div>
-                        <h3 class="feature-title-3d">Floating Elements</h3>
-                        <p class="feature-description-3d">Cards and orbs float independently, each with unique animation timing to create organic movement patterns.</p>
-                    </div>
-                    <div class="feature-card-3d" data-index="4">
-                        <span class="feature-number">05</span>
-                        <div class="feature-icon-3d">🌊</div>
-                        <h3 class="feature-title-3d">Smooth Scrolling</h3>
-                        <p class="feature-description-3d">Optimized performance ensures buttery-smooth scrolling even with multiple animated layers and effects.</p>
-                    </div>
-                    <div class="feature-card-3d" data-index="5">
-                        <span class="feature-number">06</span>
-                        <div class="feature-icon-3d">🎯</div>
-                        <h3 class="feature-title-3d">Interactive Focus</h3>
-                        <p class="feature-description-3d">Mouse-following effects and hover states add another dimension of interactivity to the parallax experience.</p>
-                    </div>
+                    <h3>DevOps & Cloud</h3>
+                    <p>Automated CI/CD pipelines, Kubernetes orchestration, infrastructure-as-code, and 24/7 monitoring. We make deployments effortless and infrastructure resilient.</p>
+                    <ul class="sc-list">
+                        <li>AWS / GCP / Azure</li>
+                        <li>Docker & Kubernetes</li>
+                        <li>Terraform & Ansible</li>
+                        <li>GitHub Actions / GitLab CI</li>
+                    </ul>
+                    <div class="sc-arrow">→</div>
                 </div>
-                <div class="carousel-controls">
-                    <div class="carousel-btn" id="prevBtn">◀</div>
-                    <div class="carousel-btn" id="nextBtn">▶</div>
+
+                <div class="service-card sc-software" data-reveal>
+                    <div class="sc-glow"></div>
+                    <div class="sc-number">02</div>
+                    <div class="sc-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="4" y="6" width="24" height="20" rx="3" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 13l-3 3 3 3M20 13l3 3-3 3M16 11l-2 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Software Development</h3>
+                    <p>Custom web applications, SaaS platforms, APIs, and enterprise systems built with modern stacks. Clean architecture, clean code, exceptional performance.</p>
+                    <ul class="sc-list">
+                        <li>React / Next.js / Vue</li>
+                        <li>Node.js / Python / Go</li>
+                        <li>PostgreSQL / MongoDB</li>
+                        <li>REST & GraphQL APIs</li>
+                    </ul>
+                    <div class="sc-arrow">→</div>
                 </div>
-                <div class="carousel-indicators" id="indicators"></div>
+
+                <div class="service-card sc-mobile" data-reveal>
+                    <div class="sc-glow"></div>
+                    <div class="sc-number">03</div>
+                    <div class="sc-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="10" y="3" width="12" height="26" rx="3" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="16" cy="26" r="1.5" fill="currentColor"/>
+                            <path d="M13 7h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Mobile Development</h3>
+                    <p>Native iOS, Android, and cross-platform applications with smooth 60fps UX. We build apps users love — from MVP to App Store in record time.</p>
+                    <ul class="sc-list">
+                        <li>React Native & Flutter</li>
+                        <li>Swift & Kotlin Native</li>
+                        <li>App Store Optimization</li>
+                        <li>Push Notifications & Analytics</li>
+                    </ul>
+                    <div class="sc-arrow">→</div>
+                </div>
+
+                <div class="service-card sc-saas" data-reveal>
+                    <div class="sc-glow"></div>
+                    <div class="sc-number">04</div>
+                    <div class="sc-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M8 20c-2.761 0-5-2.239-5-5s2.239-5 5-5c.34 0 .672.034.994.1A7 7 0 0125 12a5 5 0 01-1 9.9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 18v8M13 23l3 3 3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>SaaS Products</h3>
+                    <p>Multi-tenant SaaS architecture, subscription billing, onboarding flows, and analytics dashboards. Turn your vision into a revenue-generating platform.</p>
+                    <ul class="sc-list">
+                        <li>Multi-Tenant Architecture</li>
+                        <li>Stripe / Payment Integration</li>
+                        <li>Usage Analytics & Metrics</li>
+                        <li>Scalable Microservices</li>
+                    </ul>
+                    <div class="sc-arrow">→</div>
+                </div>
             </div>
         </div>
-
-        <!-- Navigation -->
-        <a href="#about" class="nav-btn-prev" title="Previous Section">
-            <div class="hexagon">
-                <span class="hex-content">▲</span>
-            </div>
-        </a>
-        <a href="#gallery" class="nav-btn-next" title="Next Section">
-            <div class="pyramid">
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-base"></div>
-                <span class="pyramid-inner">▼</span>
-            </div>
-        </a>
     </section>
 
-    <!-- Gallery Section -->
-    <section class="gallery-section section-gradient" id="gallery">
+    <!-- Process Section -->
+    <section class="section process-section">
         <div class="container">
-            <h2 class="section-title">Dynamic Gallery</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=300&fit=crop" alt="Deep Space" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Deep Space</h3>
-                        <p class="gallery-subtitle">Infinite parallax layers</p>
+            <div class="section-header" data-reveal>
+                <span class="section-label">How We Work</span>
+                <h2 class="section-title">A Process Built for <span class="gradient-text">Speed & Quality</span></h2>
+            </div>
+            <div class="process-steps">
+                <div class="process-step" data-reveal>
+                    <div class="step-num">01</div>
+                    <div class="step-connector"></div>
+                    <h4>Discovery</h4>
+                    <p>Deep dive into your requirements, goals, and constraints to define the perfect solution.</p>
+                </div>
+                <div class="process-step" data-reveal>
+                    <div class="step-num">02</div>
+                    <div class="step-connector"></div>
+                    <h4>Architecture</h4>
+                    <p>Design scalable, future-proof system architecture aligned with your business needs.</p>
+                </div>
+                <div class="process-step" data-reveal>
+                    <div class="step-num">03</div>
+                    <div class="step-connector"></div>
+                    <h4>Build</h4>
+                    <p>Iterative development with continuous delivery, testing, and client collaboration.</p>
+                </div>
+                <div class="process-step" data-reveal>
+                    <div class="step-num">04</div>
+                    <div class="step-connector"></div>
+                    <h4>Launch</h4>
+                    <p>Smooth deployment, monitoring setup, and post-launch support to ensure success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work / Portfolio Section -->
+    <section id="work" class="section work-section">
+        <div class="container">
+            <div class="section-header" data-reveal>
+                <span class="section-label">Our Work</span>
+                <h2 class="section-title">Projects That <span class="gradient-text">Define Excellence</span></h2>
+            </div>
+            <div class="work-grid">
+                <div class="work-card wc-large" data-reveal>
+                    <div class="wc-image">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=500&fit=crop" alt="DevOps Platform" loading="lazy">
+                        <div class="wc-overlay">
+                            <span class="wc-tag">DevOps</span>
+                            <h3>Cloud Infrastructure Platform</h3>
+                            <p>Automated multi-cloud deployment pipeline serving 1M+ daily requests</p>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=300&fit=crop" alt="Ocean Depths" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Ocean Depths</h3>
-                        <p class="gallery-subtitle">Underwater perspectives</p>
+                <div class="work-card" data-reveal>
+                    <div class="wc-image">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop" alt="Mobile App" loading="lazy">
+                        <div class="wc-overlay">
+                            <span class="wc-tag">Mobile</span>
+                            <h3>FinTech Mobile App</h3>
+                            <p>React Native app with 500K+ downloads</p>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop" alt="Mountain Peaks" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Mountain Peaks</h3>
-                        <p class="gallery-subtitle">Elevation changes</p>
+                <div class="work-card" data-reveal>
+                    <div class="wc-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="SaaS Dashboard" loading="lazy">
+                        <div class="wc-overlay">
+                            <span class="wc-tag">SaaS</span>
+                            <h3>Analytics SaaS Platform</h3>
+                            <p>Real-time data dashboard for 200+ enterprise clients</p>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=600&h=300&fit=crop" alt="City Lights" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">City Lights</h3>
-                        <p class="gallery-subtitle">Urban depth fields</p>
+                <div class="work-card" data-reveal>
+                    <div class="wc-image">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" alt="E-commerce" loading="lazy">
+                        <div class="wc-overlay">
+                            <span class="wc-tag">Software</span>
+                            <h3>E-Commerce Platform</h3>
+                            <p>Custom headless commerce with 99.99% uptime</p>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=600&h=300&fit=crop" alt="Abstract Realm" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Abstract Realm</h3>
-                        <p class="gallery-subtitle">Geometric dimensions</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1604076913837-52ab5629fba9?w=600&h=300&fit=crop" alt="Time Warp" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Time Warp</h3>
-                        <p class="gallery-subtitle">Temporal layers</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1534996858221-380b92700493?w=600&h=300&fit=crop" alt="Northern Lights" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Aurora Borealis</h3>
-                        <p class="gallery-subtitle">Natural light phenomena</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=600&h=300&fit=crop" alt="Digital Matrix" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <h3 class="gallery-title">Digital Matrix</h3>
-                        <p class="gallery-subtitle">Cyber dimensions</p>
+                <div class="work-card" data-reveal>
+                    <div class="wc-image">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=600&h=400&fit=crop" alt="IoT Platform" loading="lazy">
+                        <div class="wc-overlay">
+                            <span class="wc-tag">DevOps</span>
+                            <h3>IoT Monitoring System</h3>
+                            <p>Real-time sensor data pipeline with Kubernetes</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Navigation -->
-        <a href="#features" class="nav-btn-prev" title="Previous Section">
-            <div class="hexagon">
-                <span class="hex-content">▲</span>
+    <!-- Testimonials -->
+    <section class="section testimonials-section">
+        <div class="container">
+            <div class="section-header" data-reveal>
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">Trusted by <span class="gradient-text">Industry Leaders</span></h2>
             </div>
-        </a>
-        <a href="#contact" class="nav-btn-next" title="Next Section">
-            <div class="pyramid">
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-face"></div>
-                <div class="pyramid-base"></div>
-                <span class="pyramid-inner">▼</span>
+            <div class="testimonials-grid">
+                <div class="tcard" data-reveal>
+                    <div class="tcard-stars">★★★★★</div>
+                    <p>"SomoX completely transformed our deployment process. What used to take hours now takes minutes. Their DevOps expertise is unmatched."</p>
+                    <div class="tcard-author">
+                        <div class="tcard-avatar">JR</div>
+                        <div>
+                            <strong>James Richardson</strong>
+                            <span>CTO, TechFlow Inc.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tcard" data-reveal>
+                    <div class="tcard-stars">★★★★★</div>
+                    <p>"The mobile app they built for us exceeded every expectation. Beautiful design, lightning-fast performance, and delivered on time."</p>
+                    <div class="tcard-author">
+                        <div class="tcard-avatar">SP</div>
+                        <div>
+                            <strong>Sarah Park</strong>
+                            <span>CEO, Velocity Apps</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tcard" data-reveal>
+                    <div class="tcard-stars">★★★★★</div>
+                    <p>"Our SaaS platform went from concept to 10,000 users in under 6 months. SomoX's architecture decisions made that scale possible."</p>
+                    <div class="tcard-author">
+                        <div class="tcard-avatar">ML</div>
+                        <div>
+                            <strong>Marcus Lee</strong>
+                            <span>Founder, DataSync</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </a>
+        </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="content-section contact-section-bg" id="contact">
+    <section id="contact" class="section contact-section">
+        <div class="contact-bg-orbs">
+            <div class="contact-orb co-1"></div>
+            <div class="contact-orb co-2"></div>
+        </div>
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-form">
-                    <div class="form-group">
-                        <input type="text" class="form-input" placeholder="Your Name" required>
+            <div class="contact-grid">
+                <div class="contact-info-col" data-reveal>
+                    <span class="section-label">Get In Touch</span>
+                    <h2 class="section-title">Let's Build Something <span class="gradient-text">Extraordinary</span></h2>
+                    <p>Have a project in mind? We'd love to hear about it. Send us a message and we'll get back within 24 hours.</p>
+                    <div class="contact-details">
+                        <div class="cd-item">
+                            <div class="cd-icon">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2.5 5.5l7.5 5 7.5-5M3 4h14a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                            </div>
+                            <span>hello@somox.com</span>
+                        </div>
+                        <div class="cd-item">
+                            <div class="cd-icon">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 3h3l1.5 4L6 9s2 3 5 5l2-1.5 4 1.5v3c0 1-1 2-2 1.5C6.5 16 3 10 2 5.5 1.5 4 2 3 3 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="cd-item">
+                            <div class="cd-icon">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" stroke="currentColor" stroke-width="1.5"/><path d="M10 2C6.686 2 4 4.686 4 8c0 4.5 6 10 6 10s6-5.5 6-10c0-3.314-2.686-6-6-6z" stroke="currentColor" stroke-width="1.5"/></svg>
+                            </div>
+                            <span>123 Innovation Drive, Tech City</span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" class="form-input" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-input" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-input form-textarea" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
                 </div>
-                <div class="contact-info">
-                    <h3>Connect With Us</h3>
-                    <div class="info-item">
-                        <div class="info-icon">📧</div>
-                        <span class="info-text">hello@somox.com</span>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">📱</div>
-                        <span class="info-text">+1 (555) 123-4567</span>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">📍</div>
-                        <span class="info-text">123 Design Street, Creative City, DC 12345</span>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">🌐</div>
-                        <span class="info-text">www.somox.com</span>
-                    </div>
+                <div class="contact-form-col" data-reveal>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="field">
+                                <label>Your Name</label>
+                                <input type="text" placeholder="John Doe" required>
+                            </div>
+                            <div class="field">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Service Interested In</label>
+                            <select>
+                                <option value="">Select a service...</option>
+                                <option>DevOps & Cloud</option>
+                                <option>Software Development</option>
+                                <option>Mobile Development</option>
+                                <option>SaaS Products</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Message</label>
+                            <textarea placeholder="Tell us about your project..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary btn-full">
+                            <span>Send Message</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <div class="form-success" id="formSuccess">Message sent! We'll be in touch soon. ✓</div>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <!-- Navigation -->
-        <a href="#gallery" class="nav-btn-prev" title="Previous Section">
-            <div class="hexagon">
-                <span class="hex-content">▲</span>
-            </div>
-        </a>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#hero" class="footer-link">Home</a>
-                <a href="#about" class="footer-link">About</a>
-                <a href="#features" class="footer-link">Features</a>
-                <a href="#gallery" class="footer-link">Gallery</a>
-                <a href="#contact" class="footer-link">Contact</a>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#hero" class="nav-logo">
+                        <svg width="32" height="32" viewBox="0 0 100 100">
+                            <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" fill="none" stroke="url(#lg1)" stroke-width="3"/>
+                            <polygon points="50,30 68,42 68,58 50,70 32,58 32,42" fill="url(#lg1)" opacity="0.6"/>
+                            <circle cx="50" cy="50" r="8" fill="white"/>
+                        </svg>
+                        <span>SomoX</span>
+                    </a>
+                    <p>Building the digital infrastructure of tomorrow, today.</p>
+                </div>
+                <div class="footer-links-grid">
+                    <div class="footer-col">
+                        <h5>Services</h5>
+                        <a href="#services">DevOps & Cloud</a>
+                        <a href="#services">Software Dev</a>
+                        <a href="#services">Mobile Apps</a>
+                        <a href="#services">SaaS Products</a>
+                    </div>
+                    <div class="footer-col">
+                        <h5>Company</h5>
+                        <a href="#about">About Us</a>
+                        <a href="#work">Portfolio</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
             </div>
-            <div class="footer-divider"></div>
-            <div class="footer-copyright">
-                <p>© 2024 SomoX. All rights reserved.</p>
-                <p>Design: <a href="https://www.tooplate.com" target="_blank" rel="nofollow noopener">Tooplate</a></p>
+            <div class="footer-bottom">
+                <p>© 2025 SomoX. All rights reserved.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
 
-<script src="tooplate-2144-parallax-scripts.js"></script>
+    <script src="somox.js"></script>
 </body>
 </html>
